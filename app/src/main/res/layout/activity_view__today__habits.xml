@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/today_header"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:text="@string/todayHeader"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="5dp" />
+
+    <ListView
+        android:id="@+id/list_habits"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_weight="0.64"
+        android:scrollbarStyle="outsideOverlay"
+        android:fadeScrollbars="false">
+    </ListView>
+
+    <Button
+        android:id="@+id/add_habit_button"
+        android:layout_width="100dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="12sp"
+        android:text="@string/addHabitButton"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Inset" />
+</LinearLayout>
