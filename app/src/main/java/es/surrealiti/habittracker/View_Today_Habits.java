@@ -1,5 +1,6 @@
 package es.surrealiti.habittracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,7 +53,9 @@ public class View_Today_Habits extends AppCompatActivity {
         habitsContainer.setAdapter(habitAdapter);
     }
     public void addNewHabit() {
-        this.allHabits.add(new Habit("This is a new habit", new Date()));
-        this.habitAdapter.notifyDataSetChanged();
+//        this.allHabits.add(new Habit("This is a new habit", new Date()));
+//        this.habitAdapter.notifyDataSetChanged();
+        Intent intent = new Intent(this, MakeHabit.class);
+        startActivity(intent);
     }
 }
