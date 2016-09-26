@@ -1,30 +1,69 @@
 package es.surrealiti.habittracker;
 
-import java.lang.reflect.Array;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Justin on 2016-09-23.
  */
 
-public class Habit {
+public class Habit implements Parcelable {
     private String name;
     private int id;
     private Date created;
-    private ArrayList<Date> weekdays;
-    private ArrayList<Date> completed;
+    private Map<String, Boolean> days;
+    private ArrayList<Date> history;
+
+    public Habit(String name){
+        this.name = name;
+        this.created = new Date();
+        this.days = instantiateDays();
+        this.history = new ArrayList<Date>();
+    }
 
     public Habit(String name, Date day){
         this.name = name;
-        this.created = new Date();
-        this.weekdays = new ArrayList<Date>();
-        this.weekdays.add(day);
-        this.completed = new ArrayList<Date>();
+        this.created = day;
+        this.days = this.instantiateDays();
+        this.history = new ArrayList<Date>();
     }
 
+    // Change to String
     @Override
     public String toString(){
         return this.created.toString() + " | " + this.name;
+    }
+
+    //Implementation of Parcel
+    protected Habit(Parcel in) {
+        name = in.readString();
+        created = new Date(in.readLong());
+    }
+
+    public static final Creator<Habit> CREATOR = new Creator<Habit>() {
+        @Override
+        public Habit createFromParcel(Parcel in) {
+            return new Habit(in);
+        }
+
+        @Override
+        public Habit[] newArray(int size) {
+            return new Habit[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(name);
+        out.writeLong(created.getTime());
+    }
+    @Override
+    public int describeContents(){
+        return 0;
     }
 }
