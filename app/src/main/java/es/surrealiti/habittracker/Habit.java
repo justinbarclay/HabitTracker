@@ -39,6 +39,37 @@ public class Habit implements Parcelable {
         return this.created.toString() + " | " + this.name;
     }
 
+
+    private Map<String, Boolean> instantiateDays(){
+        Map<String, Boolean> map = new HashMap<String, Boolean>(7);
+        map.put("Sunday", false);
+        map.put("Monday", false);
+        map.put("Tuesday", false);
+        map.put("Wednesday", false);
+        map.put("Thursday", false);
+        map.put("Friday", false);
+        map.put("Saturday", false);
+
+        return map;
+    }
+
+    //Getters and Setters
+    public void addDay(String day){
+        this.days.put(day, true);
+    }
+    public void removeDate(String day){
+        this.days.put(day, false);
+    }
+
+    public String getName(){
+        return this.name;
+    }
+    public Map<String, Boolean> getDays(){
+        return this.days;
+    }
+    public ArrayList<Date> getHistory(){
+        return this.history;
+    }
     //Implementation of Parcel
     protected Habit(Parcel in) {
         name = in.readString();
