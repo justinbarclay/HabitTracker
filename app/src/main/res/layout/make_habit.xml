@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -13,35 +14,54 @@
         android:textAlignment="center" />
 
     <EditText
+        android:id="@+id/habitName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Habit Name"
         android:ems="10"
-        android:id="@+id/editText" />
+        android:hint="What do you want to make a habit?" />
+
     <ToggleButton
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:text="Monday"
-        android:checked="false" />
+        android:textOn="Monday"
+        android:textOff="Monday"
+        android:checked="false"
+        android:id="@+id/Monday" />
+
     <ToggleButton
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:text="Tuesday"
-        android:checked="false" />
+        android:textOff="Tuesday"
+        android:textOn="Tuesday"
+        android:checked="false"
+        android:id="@+id/Tuesday" />
+
     <ToggleButton
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:text="Wednesday"
-        android:checked="false" />
+        android:textOff="Wednesday"
+        android:textOn="Wednesday"
+        android:checked="false"
+        android:id="@+id/Wednesday" />
     <ToggleButton
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:text="Thursday"
-        android:checked="false" />
+        android:textOff="Thursday"
+        android:textOn="Thursday"
+        android:checked="false"
+        android:id="@+id/Thursday" />
     <ToggleButton
         android:layout_width="100dp"
         android:layout_height="60dp"
-        android:text="Friday"
-        android:checked="false" />
+        android:checked="false"
+        android:id="@+id/Friday"
+        android:textOff="Friday"
+        android:textOn="Friday" />
+    <Button
+        android:id="@+id/done"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:text="Done"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>
