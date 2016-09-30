@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MakeHabit"></activity>
+        <activity android:name=".EditHabit"></activity>
     </application>
 
 </manifest>
