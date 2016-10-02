@@ -67,7 +67,9 @@ public class Habit implements Parcelable {
     public void trackDay(String day, Boolean track){
         this.days.put(day, track);
     }
-
+    public Date createdOn(){
+        return created;
+    }
     public String getName(){
         return this.name;
     }
@@ -86,8 +88,8 @@ public class Habit implements Parcelable {
         this.name = in.readString();
         this.id = UUID.fromString(in.readString());
         this.created = new Date(in.readLong());
-        days = (HashMap<String, Boolean>) in.readBundle().getSerializable("days");
-        this.history = new ArrayList<Date>();
+        this.days = (HashMap<String, Boolean>) in.readBundle().getSerializable("days");
+        this.history = (ArrayList<Date>) in.readBundle().getSerializable("history");
     }
 
     public static final Creator<Habit> CREATOR = new Creator<Habit>() {
@@ -109,19 +111,27 @@ public class Habit implements Parcelable {
         out.writeLong(created.getTime());
 
         Bundle daysBundle = new Bundle();
+        Bundle historyBundle = new Bundle();
         daysBundle.putSerializable("days",days);
+        historyBundle.putSerializable("history", history);
+
         out.writeBundle(daysBundle);
+        out.writeBundle(historyBundle);
     }
     @Override
     public int describeContents(){
         return 0;
     }
 
-    public void addHistory(){
+    public void addCompletion(){
         history.add(new Date());
     }
 
     public void deleteHistory(Date date){
         history.remove(date);
+    }
+
+    public void setCreatedionDate(Date createdOn) {
+        this.created = createdOn;
     }
 }
