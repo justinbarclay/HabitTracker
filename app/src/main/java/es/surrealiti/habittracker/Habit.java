@@ -12,11 +12,14 @@ import java.util.UUID;
 
 /**
  * Created by Justin on 2016-09-23.
+ * This is the base class for which the rest of the program is made.
+ * It contains models all the pertinent information to be able to easily track, update, and remove
+ * habits.
  */
 
 public class Habit implements Parcelable {
     private String name;
-    private UUID id;
+    private UUID id; // Using UUID so we have a very good chance of ID being unique
     private Date created;
     private HashMap<String, Boolean> days;
     private ArrayList<Date> history;
@@ -38,17 +41,11 @@ public class Habit implements Parcelable {
     }
 
     // Change to String
-    @Override
-    public String toString(){
-        return this.created.toString() + " | " + this.name + "\n" + this.days.toString();
-    }
 
-    public UUID getID(){
-        return this.id;
-    }
 
-    public boolean equals(Habit otherHabit){
-        return this.id == otherHabit.getID();
+    //Create our own method to cheque for object equality
+    public boolean isEqual(Habit otherHabit){
+        return this.id.equals(otherHabit.getID());
     }
 
     private HashMap<String, Boolean> instantiateDays(){
@@ -64,12 +61,11 @@ public class Habit implements Parcelable {
     }
 
     //Getters and Setters
-    public void trackDay(String day, Boolean track){
-        this.days.put(day, track);
+    @Override
+    public int describeContents(){
+        return 0;
     }
-    public Date createdOn(){
-        return created;
-    }
+
     public String getName(){
         return this.name;
     }
@@ -77,13 +73,44 @@ public class Habit implements Parcelable {
         this.name = name;
     }
 
-    public Map<String, Boolean> getDays(){
-        return this.days;
+    public Date createdOn(){
+        return created;
     }
+    public void setCreationDate(Date createdOn) {
+        this.created = createdOn;
+    }
+
     public ArrayList<Date> getHistory(){
         return this.history;
     }
-    //Implementation of Parcel
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
+
+    public UUID getID(){
+        return this.id;
+    }
+
+    public void addCompletion(){
+        history.add(new Date());
+    }
+    public void deleteHistory(Date date){
+        history.remove(date);
+    }
+    public void setHistory(ArrayList<Date> history) {
+        this.history = history;
+    }
+
+    public void trackDay(String day, Boolean track){
+        this.days.put(day, track);
+    }
+    public Map<String, Boolean> getDays(){
+        return this.days;
+    }
+
+    //The following functions are needed to parcel Habits in between views
     protected Habit(Parcel in) {
         this.name = in.readString();
         this.id = UUID.fromString(in.readString());
@@ -112,26 +139,10 @@ public class Habit implements Parcelable {
 
         Bundle daysBundle = new Bundle();
         Bundle historyBundle = new Bundle();
-        daysBundle.putSerializable("days",days);
+        daysBundle.putSerializable("days", days);
         historyBundle.putSerializable("history", history);
 
         out.writeBundle(daysBundle);
         out.writeBundle(historyBundle);
-    }
-    @Override
-    public int describeContents(){
-        return 0;
-    }
-
-    public void addCompletion(){
-        history.add(new Date());
-    }
-
-    public void deleteHistory(Date date){
-        history.remove(date);
-    }
-
-    public void setCreatedionDate(Date createdOn) {
-        this.created = createdOn;
     }
 }
