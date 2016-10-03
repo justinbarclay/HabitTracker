@@ -160,8 +160,8 @@ public class EditHabit extends AppCompatActivity {
     }
 
     public void save(){
-        if (name.getText().toString() == ""){
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.habitTracker), R.string.noName, Snackbar.LENGTH_SHORT);
+        if (name.getText().toString().length() < 1){
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.edit_habit), R.string.noName, Snackbar.LENGTH_SHORT);
             snackbar.show();
         } else {
             Intent intent = new Intent();

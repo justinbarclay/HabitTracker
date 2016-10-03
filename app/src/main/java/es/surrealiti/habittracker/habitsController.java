@@ -21,7 +21,7 @@ import java.util.Observable;
  * Created by Justin on 2016-10-02.
  */
 
-public class HabitsController extends Observable {
+public class HabitsController {
     private static final String FILENAME = "file.sav";
     HabitList allHabits;
     Context context;

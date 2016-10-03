@@ -2,6 +2,7 @@ package es.surrealiti.habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,22 +10,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 /**
  * Created by Justin on 2016-09-25.
+ * This controls the view for initializing new habits. This view is distinct from EditHabit
+ * As it's purpose is much simpler.
  */
 
 public class MakeHabit extends AppCompatActivity {
     private Button doneButton;
     private EditText name;
-    private ToggleButton monday;
-    private ToggleButton tuesday;
-    private ToggleButton wednesday;
-    private ToggleButton thursday;
-    private ToggleButton friday;
-    private ToggleButton saturday;
-    private ToggleButton sunday;
+    private Switch monday;
+    private Switch tuesday;
+    private Switch wednesday;
+    private Switch thursday;
+    private Switch friday;
+    private Switch saturday;
+    private Switch sunday;
 
     Habit habit = new Habit("");
     @Override
@@ -32,11 +36,14 @@ public class MakeHabit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.make_habit);
         doneButton = (Button) findViewById(R.id.done);
-        monday = (ToggleButton) findViewById(R.id.Monday);
-        tuesday = (ToggleButton) findViewById(R.id.Tuesday);
-        wednesday = (ToggleButton) findViewById(R.id.Wednesday);
-        thursday = (ToggleButton) findViewById(R.id.Thursday);
-        friday = (ToggleButton) findViewById(R.id.Friday);
+
+        monday = (Switch) findViewById(R.id.Monday);
+        tuesday = (Switch) findViewById(R.id.Tuesday);
+        wednesday = (Switch) findViewById(R.id.Wednesday);
+        thursday = (Switch) findViewById(R.id.Thursday);
+        friday = (Switch) findViewById(R.id.Friday);
+        saturday = (Switch) findViewById(R.id.Saturday);
+        sunday = (Switch) findViewById(R.id.Sunday);
 
         name = (EditText) findViewById(R.id.habitName);
 
@@ -45,7 +52,8 @@ public class MakeHabit extends AppCompatActivity {
         wednesday.setOnCheckedChangeListener(trackDay);
         thursday.setOnCheckedChangeListener(trackDay);
         friday.setOnCheckedChangeListener(trackDay);
-
+        sunday.setOnCheckedChangeListener(trackDay);
+        saturday.setOnCheckedChangeListener(trackDay);
 
         name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -78,12 +86,14 @@ public class MakeHabit extends AppCompatActivity {
     };
 
     private void done() {
-        if (name.getText().toString() == ""){
-            // Eventually add a pop up prompting user for name
+        if (name.getText().toString().length() < 1){
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.make_habit), R.string.noName, Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("newHabit", habit);
+            setResult(RESULT_OK, intent);
+            finish();
         }
-        Intent intent = new Intent();
-        intent.putExtra("newHabit", habit);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 }
