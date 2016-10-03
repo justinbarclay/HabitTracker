@@ -16,7 +16,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/*  This is the entry point to the program.
+* It controls the views for any list of habits, as well as, it marshals
+* the creation of new habits or, editing/deleting of old habits.
+ *
+ */
 public class MainView extends AppCompatActivity {
     private ArrayList<Habit> allHabits = new ArrayList<Habit>();
     private ListView habitsContainer;
